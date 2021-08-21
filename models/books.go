@@ -31,7 +31,7 @@ func UpdateBook(b io.ReadCloser) ([]Book, error) {
 	_ = json.NewDecoder(b).Decode(&bookToUpdate);
 
 	updated := false
-	for i, _ := range books {
+	for i := range books {
 		ele := &books[i]
 		if ele.ID == bookToUpdate.ID {
 			ele.Author = bookToUpdate.Author
