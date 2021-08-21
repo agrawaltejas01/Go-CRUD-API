@@ -9,8 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-
-func main()  {
+func main() {
 	r := mux.NewRouter()
 
 	models.ConnectDB()

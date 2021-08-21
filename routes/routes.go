@@ -11,28 +11,28 @@ func GetBooks(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(models.GetBooks())
 }
 
-func AddBook(w http.ResponseWriter, r *http.Request){
+func AddBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(models.AddBooks(r.Body))
 }
 
-func UpdateBook(w http.ResponseWriter, r *http.Request){
+func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	books, err := models.UpdateBook(r.Body);
+	books, err := models.UpdateBook(r.Body)
 
 	if err != nil {
-		http.Error(w, err.Error(), 500);	
+		http.Error(w, err.Error(), 500)
 	}
 
 	json.NewEncoder(w).Encode(books)
 }
 
-func DeleteBook(w http.ResponseWriter, r *http.Request){
+func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	books, err := models.DeleteBook(r.Body);
+	books, err := models.DeleteBook(r.Body)
 
 	if err != nil {
-		http.Error(w, err.Error(), 500);	
+		http.Error(w, err.Error(), 500)
 	}
 
 	json.NewEncoder(w).Encode(books)

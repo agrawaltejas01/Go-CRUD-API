@@ -7,9 +7,8 @@ import (
 )
 
 type Book struct {
-	
-	ID int `json:"id" gorm:"unique_index"`
-	Title string `json:"title" gorm:"type:varchar(50)"`
+	ID     int    `json:"id" gorm:"unique_index"`
+	Title  string `json:"title" gorm:"type:varchar(50)"`
 	Author string `json:"author" gorm:"type:varchar(50)"`
 }
 
@@ -29,7 +28,7 @@ func GetBooks() []Book {
 
 func UpdateBook(b io.ReadCloser) ([]Book, error) {
 	var bookToUpdate Book
-	_ = json.NewDecoder(b).Decode(&bookToUpdate);
+	_ = json.NewDecoder(b).Decode(&bookToUpdate)
 
 	updated := false
 	for i := range books {
@@ -51,7 +50,7 @@ func UpdateBook(b io.ReadCloser) ([]Book, error) {
 
 func DeleteBook(b io.ReadCloser) ([]Book, error) {
 	var bookToDelete Book
-	_ = json.NewDecoder(b).Decode(&bookToDelete);
+	_ = json.NewDecoder(b).Decode(&bookToDelete)
 
 	deleted := false
 	for i := range books {
@@ -59,7 +58,7 @@ func DeleteBook(b io.ReadCloser) ([]Book, error) {
 		if ele.ID == bookToDelete.ID {
 			books = append(books[:i], books[i+1:]...)
 			deleted = true
-			break			
+			break
 		}
 	}
 

@@ -23,7 +23,7 @@ func ConnectDB() {
 
 	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s port=%s", host, user, dbName, password, dbPort)
 
-	db ,err = gorm.Open(dialect, dbUri)
+	db, err = gorm.Open(dialect, dbUri)
 
 	if err != nil {
 		log.Fatal(err)
@@ -36,6 +36,6 @@ func CloseDB() {
 	db.Close()
 }
 
-func MigrateModels() {	 
+func MigrateModels() {
 	db.AutoMigrate(&Book{})
 }
