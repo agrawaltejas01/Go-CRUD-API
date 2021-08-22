@@ -2,7 +2,6 @@ package models
 
 import (
 	"encoding/json"
-	"errors"
 	"io"
 )
 
@@ -14,57 +13,33 @@ type Book struct {
 
 var books []Book
 
-func AddBooks(b io.ReadCloser) []Book {
+func AddBooks(b io.ReadCloser) (int, error) {
 
 	var newBook Book
 	_ = json.NewDecoder(b).Decode(&newBook)
 	books = append(books, newBook)
-	return books
+	return insertBook(&newBook)
+
 }
 
-func GetBooks() []Book {
-	return books
+func GetBooks() ([]Book, error) {
+	return getBooks()
 }
 
-func UpdateBook(b io.ReadCloser) ([]Book, error) {
+func GetBook(id int) (Book, error) {
+	return getBook(id)
+}
+
+func UpdateBook(b io.ReadCloser) error {
 	var bookToUpdate Book
 	_ = json.NewDecoder(b).Decode(&bookToUpdate)
 
-	updated := false
-	for i := range books {
-		ele := &books[i]
-		if ele.ID == bookToUpdate.ID {
-			ele.Author = bookToUpdate.Author
-			ele.Title = bookToUpdate.Title
-			updated = true
-			break
-		}
-	}
-
-	if !updated {
-		return nil, errors.New("no book with matching ID")
-	}
-
-	return books, nil
+	return updateBook(&bookToUpdate)
 }
 
-func DeleteBook(b io.ReadCloser) ([]Book, error) {
+func DeleteBook(b io.ReadCloser) error {
 	var bookToDelete Book
 	_ = json.NewDecoder(b).Decode(&bookToDelete)
 
-	deleted := false
-	for i := range books {
-		ele := books[i]
-		if ele.ID == bookToDelete.ID {
-			books = append(books[:i], books[i+1:]...)
-			deleted = true
-			break
-		}
-	}
-
-	if !deleted {
-		return nil, errors.New("no book with matching ID")
-	}
-
-	return books, nil
+	return deleteBook(&bookToDelete)
 }

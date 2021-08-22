@@ -17,9 +17,10 @@ func main() {
 	defer models.CloseDB()
 
 	r.HandleFunc("/books", routes.GetBooks).Methods("GET")
-	r.HandleFunc("/books", routes.AddBook).Methods("POST")
-	r.HandleFunc("/books", routes.UpdateBook).Methods("PUT")
-	r.HandleFunc("/books", routes.DeleteBook).Methods("DELETE")
+	r.HandleFunc("/book/{id}", routes.GetBook).Methods("GET")
+	r.HandleFunc("/book", routes.AddBook).Methods("POST")
+	r.HandleFunc("/book", routes.UpdateBook).Methods("PUT")
+	r.HandleFunc("/book", routes.DeleteBook).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8764", r))
 }
