@@ -11,3 +11,7 @@ require (
 replace models => ./models
 
 replace controller => ./app/controller
+
+replace service => ./app/service
+
+replace data => ./app/data

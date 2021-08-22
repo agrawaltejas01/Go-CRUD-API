@@ -2,8 +2,8 @@ package controller
 
 import (
 	"encoding/json"
-	"models"
 	"net/http"
+	"service"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -11,7 +11,7 @@ import (
 
 func GetBooks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	result, err := models.GetBooks()
+	result, err := service.GetBooks()
 
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -23,7 +23,7 @@ func GetBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
-	result, err := models.GetBook(id)
+	result, err := service.GetBook(id)
 
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -33,7 +33,7 @@ func GetBook(w http.ResponseWriter, r *http.Request) {
 
 func AddBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	result, err := models.AddBooks(r.Body)
+	result, err := service.AddBooks(r.Body)
 
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -43,7 +43,7 @@ func AddBook(w http.ResponseWriter, r *http.Request) {
 
 func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	err := models.UpdateBook(r.Body)
+	err := service.UpdateBook(r.Body)
 
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -54,7 +54,7 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	err := models.DeleteBook(r.Body)
+	err := service.DeleteBook(r.Body)
 
 	if err != nil {
 		http.Error(w, err.Error(), 500)

@@ -40,54 +40,6 @@ func MigrateModels() {
 	db.AutoMigrate(&Book{})
 }
 
-func insertBook(book *Book) (int, error) {
-	result := db.Create(&book)
-
-	if result.Error != nil {
-		return 0, result.Error
-	} else {
-		return int(result.RowsAffected), nil
-	}
-}
-
-func getBooks() ([]Book, error) {
-	var books []Book
-	result := db.Find(&books)
-
-	if result.Error != nil {
-		return nil, result.Error
-	} else {
-		return books, nil
-	}
-}
-
-func getBook(id int) (Book, error) {
-	var book Book
-	result := db.First(&book, id)
-
-	if result.Error != nil {
-		return book, result.Error
-	} else {
-		return book, nil
-	}
-}
-
-func updateBook(book *Book) error {
-	result := db.Save(&book)
-
-	if result.Error != nil {
-		return result.Error
-	} else {
-		return nil
-	}
-}
-
-func deleteBook(book *Book) error {
-	result := db.Delete(&book)
-
-	if result.Error != nil {
-		return result.Error
-	} else {
-		return nil
-	}
+func GetDBInstance() *gorm.DB {
+	return db
 }
