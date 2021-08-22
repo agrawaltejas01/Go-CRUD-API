@@ -1,12 +1,11 @@
 package main
 
 import (
-	"controller"
+	"github.com/gorilla/mux"
 	"log"
 	"models"
 	"net/http"
-
-	"github.com/gorilla/mux"
+	"route"
 )
 
 func main() {
@@ -16,11 +15,7 @@ func main() {
 	models.MigrateModels()
 	defer models.CloseDB()
 
-	router.HandleFunc("/books", controller.GetBooks).Methods("GET")
-	router.HandleFunc("/book/{id}", controller.GetBook).Methods("GET")
-	router.HandleFunc("/book", controller.AddBook).Methods("POST")
-	router.HandleFunc("/book", controller.UpdateBook).Methods("PUT")
-	router.HandleFunc("/book", controller.DeleteBook).Methods("DELETE")
+	route.BookRoutes(router)
 
 	log.Fatal(http.ListenAndServe(":8764", router))
 }
