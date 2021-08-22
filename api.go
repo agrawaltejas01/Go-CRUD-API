@@ -10,7 +10,8 @@ import (
 
 func main() {
 	router := mux.NewRouter()
-	router.Use(route.CommonMiddleware)
+	router.Use(route.SetWriteHeader)
+	router.Use(route.PrintReq)
 
 	models.ConnectDB()
 	models.MigrateModels()
